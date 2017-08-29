@@ -21,7 +21,7 @@ $.fn.sortable = function(options) {
 			}
 			return;
 		}
-		var isHandle, index, items = $(this).children(options.items);
+		var isHandle, parent, index, items = $(this).children(options.items);
 		var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : /^tbody$/i.test(this.tagName) ? 'tr' : 'div')
             + ' class="sortable-placeholder ' + options.placeholderClass + '">').html('&nbsp;');
         items.find(options.handle).mousedown(function() {
@@ -43,6 +43,7 @@ $.fn.sortable = function(options) {
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
 			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			parent = dragging.parent();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
@@ -52,6 +53,9 @@ $.fn.sortable = function(options) {
 			if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
+			if (!dragging.parent().is(parent)) {
+				dragging.parent().trigger('sortconnect', {item: dragging});
+			}			
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
 			this.dragDrop && this.dragDrop();
