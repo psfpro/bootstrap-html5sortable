@@ -66,6 +66,15 @@ $('#sortable1, #sortable2').sortable({
 });
 ```
 
+Use `sortconnect` event if you want to do something when an item is moved between connected lists:
+
+``` javascript
+$('.sortable').sortable().bind('sortconnect', function(e, ui) {
+    //ui.item contains the current dragged element.
+    //Triggered when the user stopped sorting and the item is moved between connected lists.
+});
+```
+
 To remove the sortable functionality completely:
 
 ``` javascript
