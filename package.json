@@ -17,10 +17,19 @@
     "drop"
   ],
   "license": "MIT",
-  "ignore": [
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "devDependencies": {
+    "uglify-js": "^3.4.9"
+  },
+  "scripts": {
+    "build": "uglifyjs jquery.sortable.js -o jquery.sortable.min.js -m"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true
+    },
+    "globals": {
+      "jQuery": true
+    }
+  }
 }
